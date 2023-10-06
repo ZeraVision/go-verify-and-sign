@@ -3,6 +3,7 @@ package transcode
 import (
 	"fmt"
 	"math/big"
+	"strings"
 )
 
 const base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -73,4 +74,36 @@ func Base58Decode(encoded string) ([]byte, error) {
 	}
 
 	return decodedBytes, nil
+}
+
+// ! this function probably won't work with multisig keys in current state
+func Base58DecodePublicKey(publicKey string) (prefix []byte, public []byte, combined []byte, err error) {
+	// Find the last occurrence of '_'
+	lastUnderscoreIndex := strings.LastIndex(publicKey, "_")
+
+	// If no underscore is found, just decode everything
+	if lastUnderscoreIndex == -1 {
+		result, err := Base58Decode(publicKey)
+
+		if err != nil {
+			fmt.Println("Base58DecodePublicKey: " + err.Error())
+		}
+
+		return nil, result, result, err
+	}
+
+	// Extract the prefix and the part to decode
+	prefixStr := publicKey[:lastUnderscoreIndex+1]
+	toDecode := publicKey[lastUnderscoreIndex+1:]
+
+	// Decode the part after the underscore
+	decoded, err := Base58Decode(toDecode)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	// Prepend the prefix to the decoded byte array
+	decodedWithPrefix := append([]byte(prefixStr), decoded...)
+
+	return []byte(prefixStr), decoded, decodedWithPrefix, err
 }
