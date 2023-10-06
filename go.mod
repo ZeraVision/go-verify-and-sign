@@ -1,4 +1,4 @@
-module signature
+module github.com/ZeraVision/go-verify-and-sign
 
 go 1.20
 

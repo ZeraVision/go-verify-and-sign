@@ -1,6 +1,6 @@
 package wallets
 
-import "signature/hash"
+import "github.com/ZeraVision/go-verify-and-sign/hash"
 
 func A_Hashing(publicKey []byte) []byte {
 	return hash.Blake3(publicKey)

@@ -2,7 +2,8 @@ package wallets
 
 import (
 	"fmt"
-	"signature/transcode"
+
+	"github.com/ZeraVision/go-verify-and-sign/transcode"
 )
 
 //
