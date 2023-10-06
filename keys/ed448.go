@@ -9,6 +9,7 @@ import (
 	"github.com/cloudflare/circl/sign/ed448"
 )
 
+// pls help
 // CreateKeyPair generates an Ed448 public and private key pair.
 // If a seed is provided, it generates the key pair deterministically from the seed.
 func CreateEd448KeyPair(seed ...[]byte) (ed448.PublicKey, ed448.PrivateKey) {
