@@ -1,0 +1,12 @@
+[Unit]
+Description=Zera Explorer Web Server     
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=1
+ExecStart=/home/zera-network-explorer/explorer/explorer            
+WorkingDirectory=/home/zera-network-explorer/explorer
+
+[Install]
+WantedBy=multi-user.target
