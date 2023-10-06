@@ -19,8 +19,8 @@ func TestEd25519(t *testing.T) {
 	t.Run("Ed25519 Create No Seed", func(t *testing.T) {
 		// Without seed
 		pubKey, privKey := create_keys.CreateEd25519KeyPair()
-		signature := sign.SignEd25519Message(privKey, message)
-		if !verify.VerifyEd25519Signature(pubKey, message, signature) {
+		signature, ok := sign.SignEd25519Message(privKey, message)
+		if !verify.VerifyEd25519Signature(pubKey, message, signature) || !ok {
 			t.Error("Failed to verify Ed25519 signature without seed")
 		}
 	})
@@ -30,8 +30,8 @@ func TestEd25519(t *testing.T) {
 		seed := make([]byte, 32)
 		_, _ = rand.Read(seed)
 		pubKey, privKey := keys.CreateEd25519KeyPair(seed)
-		signature := sign.SignEd25519Message(privKey, message) // ed25519.Sign(privKey1Seed, message)
-		if !verify.VerifyEd25519Signature(pubKey, message, signature) {
+		signature, ok := sign.SignEd25519Message(privKey, message) // ed25519.Sign(privKey1Seed, message)
+		if !verify.VerifyEd25519Signature(pubKey, message, signature) || !ok {
 			t.Error("Failed to verify Ed25519 signature with seed")
 		}
 	})
@@ -46,8 +46,8 @@ func TestEd25519(t *testing.T) {
 			t.Error("Failed to decode r_b_ keys: " + err.Error())
 		}
 
-		signature := sign.SignEd25519Message(priKey, message) // ed25519.Sign(privKey1Seed, message)
-		if !verify.VerifyEd25519Signature(pubKey, message, signature) {
+		signature, ok := sign.SignEd25519Message(priKey, message) // ed25519.Sign(privKey1Seed, message)
+		if !verify.VerifyEd25519Signature(pubKey, message, signature) || !ok {
 			t.Error("Failed to verify Ed25519 signature for import r_b_")
 		}
 	})
@@ -62,8 +62,8 @@ func TestEd25519(t *testing.T) {
 			t.Error("Failed to decode b_ keys: " + err.Error())
 		}
 
-		signature := sign.SignEd25519Message(priKey, message) // ed25519.Sign(privKey1Seed, message)
-		if !verify.VerifyEd25519Signature(pubKey, message, signature) {
+		signature, ok := sign.SignEd25519Message(priKey, message) // ed25519.Sign(privKey1Seed, message)
+		if !verify.VerifyEd25519Signature(pubKey, message, signature) || !ok {
 			t.Error("Failed to verify Ed25519 signature for import b_")
 		}
 	})
@@ -79,9 +79,9 @@ func TestEd448(t *testing.T) {
 		// Without seed
 		pubKey2, privKey2 := create_keys.CreateEd448KeyPair()
 
-		signature := sign.SignEd448Message(privKey2, message, ctx)
+		signature, ok := sign.SignEd448Message(privKey2, message, ctx)
 
-		if !verify.VerifyEd448Signature(pubKey2, message, signature, ctx) {
+		if !verify.VerifyEd448Signature(pubKey2, message, signature, ctx) || !ok {
 			t.Error("Failed to verify Ed448 signature with seed")
 		}
 
@@ -90,9 +90,9 @@ func TestEd448(t *testing.T) {
 		_, _ = rand.Read(seed)
 		pubKey2Seed, privKey2Seed := create_keys.CreateEd448KeyPair(seed) //circlEd448.NewKeyFromSeed(seed)
 
-		signatureSeed := sign.SignEd448Message(privKey2Seed, message, ctx) // circlEd448.Sign(privKey2Seed, message, ctx)
+		signatureSeed, ok := sign.SignEd448Message(privKey2Seed, message, ctx) // circlEd448.Sign(privKey2Seed, message, ctx)
 
-		if !verify.VerifyEd448Signature(pubKey2Seed, message, signatureSeed, ctx) {
+		if !verify.VerifyEd448Signature(pubKey2Seed, message, signatureSeed, ctx) || !ok {
 			t.Error("Failed to verify Ed448 signature with seed")
 		}
 
@@ -108,8 +108,8 @@ func TestEd448(t *testing.T) {
 			t.Error("Failed to decode r_c_ keys: " + err.Error())
 		}
 
-		signature := sign.SignEd448Message(priKey, message, ctx)
-		if !verify.VerifyEd448Signature(pubKey, message, signature, ctx) {
+		signature, ok := sign.SignEd448Message(priKey, message, ctx)
+		if !verify.VerifyEd448Signature(pubKey, message, signature, ctx) || !ok {
 			t.Error("Failed to verify Ed448 signature for import r_c_")
 		}
 	})
@@ -124,8 +124,8 @@ func TestEd448(t *testing.T) {
 			t.Error("Failed to decode c_ keys: " + err.Error())
 		}
 
-		signature := sign.SignEd448Message(priKey, message, ctx) // ed25519.Sign(privKey1Seed, message)
-		if !verify.VerifyEd448Signature(pubKey, message, signature, ctx) {
+		signature, ok := sign.SignEd448Message(priKey, message, ctx) // ed25519.Sign(privKey1Seed, message)
+		if !verify.VerifyEd448Signature(pubKey, message, signature, ctx) || !ok {
 			t.Error("Failed to verify Ed448 signature for import c_")
 		}
 	})
