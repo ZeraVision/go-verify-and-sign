@@ -14,5 +14,6 @@ import (
 
 // VerifySignature verifies the signature for the given message using the provided public key.
 func VerifyEd25519Signature(publicKey ed25519.PublicKey, message []byte, signature []byte) bool {
+
 	return ed25519.Verify(publicKey, message, signature)
 }
