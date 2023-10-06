@@ -2,11 +2,12 @@ package main
 
 import (
 	"crypto/rand"
-	"signature/create_keys"
-	"signature/keys"
-	"signature/sign"
-	"signature/verify"
 	"testing"
+
+	"github.com/ZeraVision/go-verify-and-sign/create_keys"
+	"github.com/ZeraVision/go-verify-and-sign/keys"
+	"github.com/ZeraVision/go-verify-and-sign/sign"
+	"github.com/ZeraVision/go-verify-and-sign/verify"
 )
 
 // go test ./... -v

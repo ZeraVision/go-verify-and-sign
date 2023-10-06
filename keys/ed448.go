@@ -3,7 +3,8 @@ package keys
 import (
 	"crypto/rand"
 	"fmt"
-	"signature/transcode"
+
+	"github.com/ZeraVision/go-verify-and-sign/transcode"
 
 	"github.com/cloudflare/circl/sign/ed448"
 )

@@ -4,7 +4,8 @@ import (
 	"crypto/ed25519"
 	"crypto/rand"
 	"fmt"
-	"signature/transcode"
+
+	"github.com/ZeraVision/go-verify-and-sign/transcode"
 )
 
 // CreateKeyPair generates an Ed25519 public and private key pair.
