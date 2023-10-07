@@ -72,10 +72,10 @@ func TestEd25519(t *testing.T) {
 func TestEd448(t *testing.T) {
 	// Test seed for demonstration; in real applications, ensure it has enough entropy
 
-	message := []byte("Hello, Ed448!")
+	message := []byte("test")
 	ctx := ""
 	// Testing Ed448
-	t.Run("Ed448", func(t *testing.T) {
+	t.Run("Ed448 Create No Seed", func(t *testing.T) {
 		// Without seed
 		pubKey2, privKey2 := create_keys.CreateEd448KeyPair()
 

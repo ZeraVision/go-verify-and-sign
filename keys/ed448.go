@@ -9,7 +9,6 @@ import (
 	"github.com/cloudflare/circl/sign/ed448"
 )
 
-// pls help
 // CreateKeyPair generates an Ed448 public and private key pair.
 // If a seed is provided, it generates the key pair deterministically from the seed.
 func CreateEd448KeyPair(seed ...[]byte) (ed448.PublicKey, ed448.PrivateKey) {
@@ -36,13 +35,13 @@ func ImportEd448KeyPair(publicKeyStr, privateKeyStr string) (ed448.PublicKey, ed
 		return nil, nil, fmt.Errorf("Invalid length for public key")
 	}
 
-	privKeyBytes, err := transcode.Base58Decode(privateKeyStr)
+	privKeyBytes, err := transcode.Base58Decode(privateKeyStr) // this function only returns private, not the public on end of private as per standards
 
 	if err != nil {
 		fmt.Println("ImportEd448KeyPair: " + err.Error())
 	}
 
-	privKeyBytes = append(privKeyBytes, pubKeyBytes...)
+	privKeyBytes = append(privKeyBytes, pubKeyBytes...) // to standardize key...
 
 	if len(privKeyBytes) != ed448.PrivateKeySize {
 		return nil, nil, fmt.Errorf("Invalid length for private key")
